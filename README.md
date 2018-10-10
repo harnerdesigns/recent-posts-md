@@ -10,11 +10,11 @@ It will output something like this:
 
 ```
 ## Recent Posts
-* [D’ART Shtajio](http://localhost/blank/projects/dart-shtajio/)
+* [Something](http://localhost/blank/projects/something/)
 * [Lololol](http://localhost/blank/projects/lololol/)
 * [Blah Blah Blah](http://localhost/blank/projects/blah-blah-blah/)
 ```
 ## Recent Posts
-* [D’ART Shtajio](http://localhost/blank/projects/dart-shtajio/)
+* [Something](http://localhost/blank/projects/something/)
 * [Lololol](http://localhost/blank/projects/lololol/)
 * [Blah Blah Blah](http://localhost/blank/projects/blah-blah-blah/)
