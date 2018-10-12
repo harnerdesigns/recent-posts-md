@@ -24,8 +24,8 @@ class RecentPostMD
     public function add_css()
     {
 
-        wp_enqueue_style("style", plugins_url("recentPostMd.css", __FILE__));
-        wp_enqueue_script("js", plugins_url("recent-post-md.js", __FILE__), "jquery");
+        wp_enqueue_style("style", plugins_url("recent-posts-md.css", __FILE__));
+        wp_enqueue_script("js", plugins_url("recent-posts-md.js", __FILE__), "jquery");
 
     }
 
