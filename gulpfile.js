@@ -33,6 +33,8 @@ var watchSassFiles = ['scss/**/*.scss'];
 var watchJsFiles = [''];
 var watchPhpFiles = ['**/*.php'];
 
+var buildFiles = ["*.css", "*.php", "*.js", "*.md", "!build/", "!.map", "!scss/", "!gulpfile.js"]
+
 var banner = {
     full: '/*!\n' +
         ' * <%= package.name %> v<%= package.version %>: <%= package.description %>\n' +
@@ -94,6 +96,21 @@ gulp.task('js', gulp.series(function() {
 }));
 
 
+gulp.task('bump:php', function(){
+ return gulp.src("./recent-posts-md.php")
+  .pipe(bump())
+  .pipe(gulp.dest('./'));
+});
+
+gulp.task('bump:package', function(){
+ return gulp.src("./package.json")
+  .pipe(bump())
+  .pipe(gulp.dest('./'));
+});
+
+gulp.task("bump", gulp.series("bump:php", "bump:package"))
+
+
 
 
 
@@ -103,6 +120,17 @@ gulp.task('watch', gulp.series(function() {
 
 
 }));
+
+gulp.task("build:zip", function(){
+var updatedPackage = require("./package.json");
+return gulp.src(buildFiles)
+        .pipe(zip(updatedPackage.name + "-" + updatedPackage.version+".zip"))
+        .pipe(gulp.dest('./build'));
+    
+})
+
+
+gulp.task('build', gulp.series('bump', 'build:zip'));
 
 
 

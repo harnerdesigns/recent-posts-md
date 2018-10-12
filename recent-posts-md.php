@@ -3,7 +3,7 @@
 Plugin Name: Recent Posts Markdown
 Plugin URI: https://github.com/harnerdesigns/recent-posts-md/
 description: Generate a markdown list of recent wordpress posts.
-Version: 0.1
+Version: 0.0.4
 Author: Harner Designs
 Author URI: https://harnerdesigns.com
 License: GPL2
@@ -38,12 +38,17 @@ class RecentPostMD
 
     public function tools_page()
     {
-
-        if (isset($_POST['recentpostmd']) && !empty($_POST['recentpostmd'])) {
+        $formSubmit = sanitize_text_field($_POST['recentpostmd']);
+        if (isset($formSubmit) && !empty($formSubmit)) {
+            if (! check_admin_referer( 'get-markdown' ) && ! current_user_can('read')){
+                return false;
+            }
+            $postType = sanitize_text_field($_POST['postType']);
+            $count = intval( $_POST['count'] );
 
             $recentposts = new WP_Query([
-                'posts_per_page' => $_POST['count'],
-                'post_type' => $_POST['postType'],
+                'posts_per_page' =>  $count ,
+                'post_type' => $postType,
                 'post_status' => 'publish',
                 'order' => 'DESC',
                 'orderby' => 'date',
@@ -53,9 +58,7 @@ class RecentPostMD
                 $markdownContent = "## Recent Posts" . PHP_EOL;
                 while ($recentposts->have_posts()) {
                     $recentposts->the_post();
-
-                    $markdownContent .= "* " . $this->markdown_link(get_the_title(), get_the_permalink()) . PHP_EOL;
-
+                    $markdownContent .= "* " . $this->markdown_link(esc_html(get_the_title()), esc_url(get_the_permalink())) . PHP_EOL;
                 }
 
             } else {
@@ -69,13 +72,15 @@ class RecentPostMD
 
         $types = $this->get_post_types();
         echo "<form method='post' id='recentpostmd'>";
+        wp_nonce_field( 'get-markdown' );
         echo "<section class='half'>";
         echo "<h2>What Post Type</h2>";
 
+        $postType = $_POST['postType'];
         echo "<select name='postType'>";
         foreach ($types as $type) {
 
-            echo sprintf("<option %s value='%s'>%s</option>", ($type->name == $_POST['postType'] ? "selected" : ''), $type->name, $type->label);
+            echo sprintf("<option %s value='%s'>%s</option>", ($type->name == $postType ? "selected" : ''), esc_html($type->name), esc_html($type->label));
         }
         echo "</select>";
         echo "</section>";
@@ -83,7 +88,7 @@ class RecentPostMD
         echo "<section class='half'>";
 
         echo "<h2>How Many Posts</h2>";
-        echo "<input type='number' name='count' min=1 value=" . (isset($_POST['count']) ? $_POST['count'] : '3') . ">";
+        echo "<input type='number' name='count' min=1 value=" . (isset($count) ? intval($count) : '3') . ">";
         echo "</section>";
         echo "<input type='submit' name='recentpostmd' value='Get Markdown'>";
 
@@ -91,7 +96,7 @@ class RecentPostMD
 
         if ($markdownContent) {
 
-            echo "<textarea id='markdownContent'>" . $markdownContent . "</textarea>";
+            echo "<textarea id='markdownContent'>" . esc_html($markdownContent) . "</textarea>";
 
         }
 
