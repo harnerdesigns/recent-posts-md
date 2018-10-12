@@ -1,28 +1,42 @@
+/* line 1, scss/recent-posts-md.scss */
 #recentpostmd {
   width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
+  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   margin: 0; }
+  /* line 9, scss/recent-posts-md.scss */
   #recentpostmd .half {
     width: calc( 50% - 1em);
     margin: 1em; }
+    /* line 11, scss/recent-posts-md.scss */
     #recentpostmd .half:first-of-type {
       margin-left: 0; }
+    /* line 15, scss/recent-posts-md.scss */
     #recentpostmd .half:last-of-type {
       margin-right: 0; }
+  /* line 21, scss/recent-posts-md.scss */
   #recentpostmd select, #recentpostmd option, #recentpostmd input, #recentpostmd textarea {
     font-size: 1em;
     line-height: 2em;
     width: 100%;
     margin: 0 auto; }
+    /* line 27, scss/recent-posts-md.scss */
     #recentpostmd select[type="submit"], #recentpostmd option[type="submit"], #recentpostmd input[type="submit"], #recentpostmd textarea[type="submit"] {
       background: #0fb681;
       color: #fff;
       border: none;
       margin: 0.5em auto; }
 
+/* line 37, scss/recent-posts-md.scss */
 #markdownContent {
   width: 50%;
   margin: 0;
