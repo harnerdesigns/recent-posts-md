@@ -1,6 +1,6 @@
 {
   "name": "recent-posts-md",
-  "version": "0.0.4", 
+  "version": "0.0.4",
   "description": "Wordpress Plugin To Generate Markdown of the Recent Posts for any post type.",
   "main": "recent-posts-md.js",
   "scripts": {
@@ -18,11 +18,10 @@
   "homepage": "https://github.com/harnerdesigns/recent-posts-md#readme",
   "devDependencies": {
     "browser-sync": "^2.23.6",
-    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp": "^4.0.0",
     "gulp-autoprefixer": "^4.1.0",
     "gulp-bump": "^3.1.0",
     "gulp-concat": "^2.6.1",
-    "gulp-connect": "^5.2.0",
     "gulp-header": "^1.8.9",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
