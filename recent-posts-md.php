@@ -41,20 +41,30 @@ class RecentPostMD
 
         if (isset($_POST['recentpostmd']) && !empty($_POST['recentpostmd'])) {
 
+            if (!check_admin_referer('recentpostmd') && !current_user_can('read')) {
+                return false;
+            }
+
+            $submittedCount = sanitize_text_field($_POST['count']);
+
+            $submittedType = sanitize_text_field($_POST['postType']);
+
+
             $recentposts = new WP_Query([
-                'posts_per_page' => $_POST['count'],
-                'post_type' => $_POST['postType'],
+                'posts_per_page' => $submittedCount,
+                'post_type' => $submittedType,
                 'post_status' => 'publish',
                 'order' => 'DESC',
                 'orderby' => 'date',
             ]);
 
             if ($recentposts->have_posts()) {
-                $markdownContent = "## Recent Posts" . PHP_EOL;
+                $postTypes = get_post_type_object($submittedType);
+                $markdownContent = "## Recent " . esc_html($postTypes->label) . PHP_EOL;
                 while ($recentposts->have_posts()) {
                     $recentposts->the_post();
 
-                    $markdownContent .= "* " . $this->markdown_link(get_the_title(), get_the_permalink()) . PHP_EOL;
+                    $markdownContent .= "* " . $this->markdown_link(esc_html(get_the_title()), esc_url(get_the_permalink())) . PHP_EOL;
 
                 }
 
@@ -69,13 +79,15 @@ class RecentPostMD
 
         $types = $this->get_post_types();
         echo "<form method='post' id='recentpostmd'>";
+        wp_nonce_field("recentpostmd");
+
         echo "<section class='half'>";
         echo "<h2>What Post Type</h2>";
 
         echo "<select name='postType'>";
         foreach ($types as $type) {
 
-            echo sprintf("<option %s value='%s'>%s</option>", ($type->name == $_POST['postType'] ? "selected" : ''), $type->name, $type->label);
+            echo sprintf("<option %s value='%s'>%s</option>", ($type->name == sanitize_text_field($_POST['postType']) ? "selected" : ''), esc_html($type->name), esc_html($type->label));
         }
         echo "</select>";
         echo "</section>";
@@ -83,7 +95,7 @@ class RecentPostMD
         echo "<section class='half'>";
 
         echo "<h2>How Many Posts</h2>";
-        echo "<input type='number' name='count' min=1 value=" . (isset($_POST['count']) ? $_POST['count'] : '3') . ">";
+        echo "<input type='number' name='count' min=1 value=" . (sanitize_text_field($_POST['count']) != null ? esc_html($_POST['count']) : '3') . ">";
         echo "</section>";
         echo "<input type='submit' name='recentpostmd' value='Get Markdown'>";
 
@@ -95,7 +107,7 @@ class RecentPostMD
 
         }
 
-        echo "<h5 class='finePrint'>Tool Developed by <a href='https://harnerdesigns.com/?utm_source=recent-posts-md' target='_blank'>Harner Designs</a> | <a href='https://github.com/harnerdesigns/recent-posts-md' target='_blank'>Plugin Github</a> | <a href='https://harnerdesigns.com/support-us?utm_source=recent-posts-md' target='_blank'>Buy Us A Beer</a></h5>";
+        echo "<h5 class='finePrint'>Tool Developed by <a href='https://harnerdesigns.com/?utm_source=recent-posts-md' target='_blank'>Harner Designs</a> | <a href='https://github.com/harnerdesigns/recent-posts-md' target='_blank'>Issues/Feature Requests</a> | <a href='https://harnerdesigns.com/support-us?utm_source=recent-posts-md' target='_blank'>Buy Us A Beer</a></h5>";
 
     }
 
@@ -107,7 +119,7 @@ class RecentPostMD
         return get_post_types($args, 'objects');
     }
 
-    public function markdown_link($text, $url)
+    private function markdown_link($text, $url)
     {
 
         return sprintf("[%s](%s)", $text, $url);
