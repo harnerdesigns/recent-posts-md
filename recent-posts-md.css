@@ -1,34 +1,65 @@
 #recentpostmd {
-  width: 50%;
+  width: 80%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin: 0; }
-  #recentpostmd .half {
-    width: calc( 50% - 1em);
-    margin: 1em; }
-    #recentpostmd .half:first-of-type {
-      margin-left: 0; }
-    #recentpostmd .half:last-of-type {
-      margin-right: 0; }
-  #recentpostmd select, #recentpostmd option, #recentpostmd input, #recentpostmd textarea {
-    font-size: 1em;
-    line-height: 2em;
-    width: 100%;
-    margin: 0 auto; }
-    #recentpostmd select[type="submit"], #recentpostmd option[type="submit"], #recentpostmd input[type="submit"], #recentpostmd textarea[type="submit"] {
-      background: #0fb681;
-      color: #fff;
-      border: none;
-      margin: 0.5em auto; }
-
-#markdownContent {
-  width: 50%;
-  margin: 0;
+  margin: 0 auto;
+  background: #fff;
+  padding: 1em;
+  box-sizing: border-box;
+}
+#recentpostmd h1 {
+  width: 100%;
+}
+#recentpostmd .half {
+  width: calc( 50% - 1em);
+  margin: 1em;
+}
+#recentpostmd .half:first-of-type {
+  margin-left: 0;
+}
+#recentpostmd .half:last-of-type {
+  margin-right: 0;
+}
+#recentpostmd select, #recentpostmd option, #recentpostmd input, #recentpostmd textarea {
+  font-size: 1em;
+  line-height: 2em;
+  width: 100%;
+  margin: 0 auto;
+}
+#recentpostmd select[type=submit], #recentpostmd option[type=submit], #recentpostmd input[type=submit], #recentpostmd textarea[type=submit] {
+  background: #b60f0f;
+  color: #fff;
+  border: none;
+  margin: 0.5em auto;
+  cursor: pointer;
+  transition: all 300ms;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+#recentpostmd select[type=submit]:hover, #recentpostmd option[type=submit]:hover, #recentpostmd input[type=submit]:hover, #recentpostmd textarea[type=submit]:hover {
+  background: #ce1111;
+  transform: scale(1.01);
+}
+#recentpostmd select[type=submit]:active, #recentpostmd option[type=submit]:active, #recentpostmd input[type=submit]:active, #recentpostmd textarea[type=submit]:active {
+  background: #9e0d0d;
+  transform: scale(0.99);
+}
+#recentpostmd #markdownContent {
+  width: 100%;
+  margin: 0 auto;
   display: block;
   font-size: 2em;
   min-height: 10em;
-  margin-top: 1em; }
+  margin-top: 1em;
+}
+#recentpostmd .finePrint {
+  color: #aaa;
+}
+#recentpostmd .finePrint a {
+  text-decoration: none;
+  color: #b60f0f;
+}
 
 /*# sourceMappingURL=recent-posts-md.css.map */

@@ -75,10 +75,10 @@ class RecentPostMD
 
         }
 
-        echo "<h1>" . __('Recent Posts Markdown Generator', 'recentpostmd') . "</h1>";
-
+        
         $types = $this->get_post_types();
         echo "<form method='post' id='recentpostmd'>";
+        echo "<h1>" . __('Recent Posts Markdown Generator', 'recentpostmd') . "</h1>";
         wp_nonce_field("recentpostmd");
 
         echo "<section class='half'>";
@@ -87,7 +87,7 @@ class RecentPostMD
         echo "<select name='postType'>";
         foreach ($types as $type) {
 
-            echo sprintf("<option %s value='%s'>%s</option>", ($type->name == sanitize_text_field($_POST['postType']) ? "selected" : ''), esc_html($type->name), esc_html($type->label));
+            echo sprintf("<option %s value='%s'>%s</option>", ($type->name == $submittedType ? "selected" : ''), esc_html($type->name), esc_html($type->label));
         }
         echo "</select>";
         echo "</section>";
@@ -95,19 +95,19 @@ class RecentPostMD
         echo "<section class='half'>";
 
         echo "<h2>How Many Posts</h2>";
-        echo "<input type='number' name='count' min=1 value=" . (sanitize_text_field($_POST['count']) != null ? esc_html($_POST['count']) : '3') . ">";
+        echo "<input type='number' name='count' min=1 value=" . (sanitize_text_field($submittedCount) != null ? esc_html($submittedCount) : '3') . ">";
         echo "</section>";
         echo "<input type='submit' name='recentpostmd' value='Get Markdown'>";
 
-        echo "</form>";
-
         if ($markdownContent) {
 
-            echo "<textarea id='markdownContent'>" . $markdownContent . "</textarea>";
+            echo "<textarea id='markdownContent'>" . esc_html($markdownContent) . "</textarea>";
 
         }
-
         echo "<h5 class='finePrint'>Tool Developed by <a href='https://harnerdesigns.com/?utm_source=recent-posts-md' target='_blank'>Harner Designs</a> | <a href='https://github.com/harnerdesigns/recent-posts-md' target='_blank'>Issues/Feature Requests</a> | <a href='https://harnerdesigns.com/support-us?utm_source=recent-posts-md' target='_blank'>Buy Us A Beer</a></h5>";
+        echo "</form>";
+
+
 
     }
 
@@ -127,4 +127,4 @@ class RecentPostMD
     }
 }
 
-$recentPost = new RecentPostMD;
+$recentPost = new RecentPostMD();

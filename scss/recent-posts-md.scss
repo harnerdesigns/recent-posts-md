@@ -1,10 +1,18 @@
+$accentColor: #b60f0f;
+
 #recentpostmd{
 
 
-	width:50%;
+	width:80%;
 	display:flex; align-items:center; justify-content:space-between;
 	flex-wrap:wrap;
-	margin:0;
+	margin:0 auto;
+	background: #fff;
+
+	padding: 1em;
+	box-sizing: border-box;
+
+	h1{ width: 100%;}
 
 	.half{ width:calc( 50% - 1em); margin: 1em;
 
@@ -26,20 +34,42 @@
 
 		&[type="submit"]{
 
-			background:#0fb681;
+			background:$accentColor;
 			color:#fff;
 			border:none; 
 			margin: 0.5em auto;
+			cursor: pointer;
+			transition: all 300ms;
+			font-weight: bold;
+			font-size: 1.5em;
+
+			&:hover{
+				background: lighten($accentColor, 5);
+				transform: scale(1.01);
+
+			}
+
+			&:active{
+				background: darken($accentColor, 5);
+				transform: scale(0.99);
+			}
 		}
 	}
-}
+	#markdownContent{
+	width:100%;
+	margin: 0 auto;
+	display:block;
+	font-size:2em;
+	min-height:10em;
+	margin-top:1em;
+	
+	}
 
-#markdownContent{
-width:50%;
-margin: 0 ;
-display:block;
-font-size:2em;
-min-height:10em;
-margin-top:1em;
+	.finePrint{
 
+		color: #aaa;
+		a{
+			text-decoration: none; color: $accentColor;
+		}
+	}
 }
