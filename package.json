@@ -1,6 +1,6 @@
 {
   "name": "recent-posts-md",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Wordpress Plugin To Generate Markdown of the Recent Posts for any post type.",
   "main": "recent-posts-md.js",
   "scripts": {

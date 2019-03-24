@@ -1,75 +1,153 @@
-$accentColor: #b60f0f;
+$accentColor: rgb(244, 67, 54);
 
-#recentpostmd{
- 
 
-	width:80%;
-	display:flex; align-items:center; justify-content:space-between;
-	flex-wrap:wrap;
-	margin:0 auto;
+@mixin breakpoint($point) {
+	@if $point==desktop {
+		@media (min-width: 70em) {
+			@content ;
+		}
+	}
+
+	@else if $point==laptop {
+		@media (min-width: 64em) {
+			@content ;
+		}
+	}
+
+	@else if $point==tablet {
+		@media (min-width: 37.5em) {
+			@content ;
+		}
+	}
+
+	@else if $point==phablet {
+		@media (min-width: 37.5em) {
+			@content ;
+		}
+	}
+
+	@else if $point==mobileonly {
+		@media (max-width: 37.5em) {
+			@content ;
+		}
+	}
+}
+
+#recentpostmd {
+
+
+	width: 95%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	margin: 0 auto;
 	background: #fff;
-
+	box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .1);
 	padding: 1em;
 	box-sizing: border-box;
 
-	h1{ width: 100%;}
+	@include breakpoint(tablet) {
+		width: 80%;
+	}
 
-	.half{ width:calc( 50% - 1em); margin: 1em;
-
-		&:first-of-type{
-			margin-left:0;
-		}
-
-		&:last-of-type{
-			margin-right:0;
-		} 
+	h1 {
+		width: 100%;
+		margin: 0;
+		line-height: 1.5em;
 
 	}
 
-	select, option, input, textarea {
-		font-size:1em;
-		line-height:2em;
-		width:100%;
+	h2 {
+		margin-top: 0;
+	}
+
+	.half {
+		width: 100%;
+
+		margin: 1em 0;
+		@include breakpoint(tablet) {
+
+			margin: 1em;
+
+
+			width: calc(50% - 1em);
+
+
+			&:first-of-type {
+				margin-left: 0;
+			}
+
+			&:last-of-type {
+				margin-right: 0;
+			}
+
+
+
+		}
+
+	}
+
+	select,
+	option,
+	input,
+	textarea {
+		font-size: 1em;
+		line-height: 2em;
+		width: 100%;
 		margin: 0 auto;
 
-		&[type="submit"]{
+		&[type="submit"] {
 
-			background:$accentColor;
-			color:#fff;
-			border:none; 
+			background: $accentColor;
+			color: #fff;
+			border: none;
 			margin: 0.5em auto;
 			cursor: pointer;
 			transition: all 300ms;
 			font-weight: bold;
 			font-size: 1.5em;
 
-			&:hover{
+			&:hover {
 				background: lighten($accentColor, 5);
 				transform: scale(1.01);
 
 			}
 
-			&:active{
+			&:active {
 				background: darken($accentColor, 5);
 				transform: scale(0.99);
 			}
 		}
 	}
-	#markdownContent{
-	width:100%;
-	margin: 0 auto;
-	display:block;
-	font-size:2em;
-	min-height:10em;
-	margin-top:1em;
-	
+
+	#markdownContent {
+		width: 100%;
+		margin: 0 auto;
+		display: block;
+		font-size: 1em;
+		min-height: 10em;
+		margin-top: 1em;
+
+		@include breakpoint(tablet){
+
+			font-size: 2em;
+		}
+
 	}
 
-	.finePrint{
-
+	.finePrint {
+		text-align: center;
 		color: #aaa;
-		a{
-			text-decoration: none; color: $accentColor;
+		margin-bottom: 0;
+
+
+		@include breakpoint(tablet){
+			text-align: left;
+		}
+		a {
+			text-decoration: none;
+			color: $accentColor;
 		}
 	}
 }
