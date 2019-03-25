@@ -40,14 +40,13 @@ class RecentPostMD
     {
         $formSubmit = sanitize_text_field($_POST['recentpostmd']);
         if (isset($formSubmit) && !empty($formSubmit)) {
-            if (! check_admin_referer( 'recentpostmd' ) && ! current_user_can('read')){
+            if (!check_admin_referer('recentpostmd') && !current_user_can('read')) {
                 return false;
             }
 
             $submittedCount = sanitize_text_field($_POST['count']);
 
             $submittedType = sanitize_text_field($_POST['postType']);
-
 
             $recentposts = new WP_Query([
                 'posts_per_page' => $submittedCount,
@@ -63,7 +62,10 @@ class RecentPostMD
                 while ($recentposts->have_posts()) {
                     $recentposts->the_post();
 
-                    $markdownContent .= "* " . $this->markdown_link(esc_html(get_the_title()), esc_url(get_the_permalink())) . PHP_EOL;
+                    $markdownContent .= "* " . $this->markdown_link(esc_html(get_the_title()), esc_url(get_the_permalink()));
+                    if (($recentposts->current_post + 1) != ($recentposts->post_count)) {
+                        $markdownContent .= PHP_EOL;
+                    }
 
                 }
 
@@ -74,7 +76,6 @@ class RecentPostMD
 
         }
 
-        
         $types = $this->get_post_types();
         echo "<form method='post' id='recentpostmd'>";
         echo "<h1>" . __('Recent Posts Markdown Generator', 'recentpostmd') . "</h1>";
@@ -106,8 +107,6 @@ class RecentPostMD
         }
         echo "<h5 class='finePrint'>Tool Developed by <a href='https://harnerdesigns.com/?utm_source=recent-posts-md' target='_blank'>Harner Designs</a> | <a href='https://github.com/harnerdesigns/recent-posts-md' target='_blank'>Issues/Feature Requests</a> | <a href='https://harnerdesigns.com/support-us?utm_source=recent-posts-md' target='_blank'>Buy Us A Beer</a></h5>";
         echo "</form>";
-
-
 
     }
 
