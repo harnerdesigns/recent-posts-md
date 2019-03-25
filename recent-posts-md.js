@@ -1,6 +1,8 @@
 jQuery(document).ready(function () {
     var textarea = jQuery("#markdownContent");
 
+    textarea.height(textarea[0].scrollHeight);
+
     jQuery(textarea).focus(function () {
 
         var $this = jQuery(this);
