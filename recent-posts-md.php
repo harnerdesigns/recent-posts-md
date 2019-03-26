@@ -3,7 +3,7 @@
 Plugin Name: Recent Posts Markdown
 Plugin URI: https://github.com/harnerdesigns/recent-posts-md/
 description: Generate a markdown list of recent wordpress posts.
-Version: 0.0.6
+Version: 0.0.7
 Author: Harner Designs
 Author URI: https://harnerdesigns.com
 License: GPL2
@@ -21,9 +21,15 @@ class RecentPostMD
 
     }
 
-    public function add_css()
+    public function add_css($hook)
     {
 
+            // Load only on ?page=mypluginname
+            if($hook != 'tools_page_recentpostmd') {
+                    return;
+            }
+
+    
         wp_enqueue_style("style", plugins_url("recent-posts-md.css", __FILE__));
         wp_enqueue_script("js", plugins_url("recent-posts-md.js", __FILE__), "jquery");
 
