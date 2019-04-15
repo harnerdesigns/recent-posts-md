@@ -4,7 +4,7 @@ A WordPress Plugin that generates a Markdown list of links to your latest posts.
 
 ## Installation
 
-_Working on getting it hosted on WordPress.org_
+[Download From WordPress.org](https://wordpress.org/plugins/recent-posts-markdown/)
 
 For now, to install and use, go to the [GitHub Releases](https://github.com/harnerdesigns/recent-posts-md/releases) for the plugin and click "Zip" on the latest version.
 
